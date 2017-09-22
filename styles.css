@@ -1,0 +1,50 @@
+body {
+    background: #121212;
+    margin: 0;
+    overflow: hidden;
+  }
+
+#layer1 {
+    z-index: 0;
+    position: absolute;
+}
+
+#layer2 {
+    position: absolute;
+    /* display: block; */
+    z-index: 1;
+    background: white;
+    top: 50%; left: 50%;
+    margin: -360px 0 0 -720px;
+}
+
+
+
+
+  @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+  }
+
+  @keyframes chill {
+      from {opacity: 1;}
+      to {opacity: 1;}
+  }
+
+  @keyframes fadeOut {
+      from {opacity: 1;}
+      to {opacity: 0;}
+  }
+
+  p {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    color: white;
+    opacity: 0;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    animation: fadeIn 2s ease-out, chill 2s 2s, fadeOut 2s 4s;
+  }
+
+
+
