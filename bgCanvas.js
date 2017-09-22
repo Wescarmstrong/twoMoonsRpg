@@ -57,11 +57,12 @@ var timer = 0;
 var opacity = 1;
 var speed = 0.0005;
 var colors = [
-    "#0952BD",
-    "#A5BFF0",
-    "#118CD6",
-    "#1AAEE8",
-    "#F2E8C9"
+    "#9514DD",
+    "#5F0FE7",
+    "#FFFFFF",
+    "#0F2DB6",
+    "#3278D0",
+    "#FFFFFF"
 ];
 
 var initializeParticles;
@@ -69,7 +70,7 @@ var initializeParticles;
 (initializeParticles = function() {
     for (var i = 0; i < particleCount; i++) {
 
-        var randomColorIndex = Math.floor(Math.random() * 6);
+        var randomColorIndex = Math.floor(Math.random() * 7);
         var randomRadius = Math.random() * 2;
 
         // particles need to be spawned past screen width and height
