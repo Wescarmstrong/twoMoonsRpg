@@ -1,20 +1,12 @@
 
 var bgCanvas = document.getElementById("layer1");
 var ctx = bgCanvas.getContext('2d');
+var fps  = document.getElementById('fps');
 
 bgCanvas.width = window.innerWidth;
 bgCanvas.height = window.innerHeight;
 
-var particleCount = 750;
-var mouse = {
-    x: window.innerWidth / 2,
-    y: window.innerHeight / 2
-};
-
-window.addEventListener("mousemove", function(event) {
-    mouse.x = event.clientX - bgCanvas.width / 2;
-    mouse.y = event.clientY - bgCanvas.height / 2;
-});
+var particleCount = 500;
 
 window.addEventListener("resize", function() {
     bgCanvas.width = window.innerWidth;
@@ -80,8 +72,23 @@ var initializeParticles;
     }
 })();
 
-function animate() {
+// var lastDraw = performance.now(); //             Old FPS measure
+// var avgDelay = 0;
+
+function animate(newtime) {
+
+    if (stop) {
+        return;
+    }
+
     window.requestAnimationFrame(animate);
+
+    now = newtime;
+    elapsed = now - then;
+
+    if(elapsed > fpsInterval) {
+        then = now - (elapsed % fpsInterval);
+
 
     ctx.save();
     if (isMouseDown === true) {
@@ -104,7 +111,7 @@ function animate() {
         ctx.fillStyle = "rgba(18, 18, 18, " + opacity + ")";
 
         // Ease back to the original speed
-        var originalSpeed = 0.001;
+        var originalSpeed = 0.0005;
         speed += (originalSpeed - speed) * 0.01;
         timer += speed;
 
@@ -119,8 +126,20 @@ function animate() {
         lightParticles[i].update();
     }
 
-    ctx.restore();
 
+      ctx.restore();
+
+      var sinceStart = now - startTime;
+      var currentFps = Math.round(1000 / (sinceStart / ++frameCount) *100) / 100;
+      fps.innerHTML ="fps: " + currentFps;
+
+
+
+    // var timeNow = performance.now();                Old FPS measure
+    // var delay = timeNow - lastDraw;
+    // avgDelay += (delay - avgDelay) / 10;
+    // lastDraw = timeNow;
+    }
 
 }
 
@@ -135,4 +154,25 @@ window.addEventListener("mouseup", function() {
     isMouseDown = false;
 });
 
-animate();
+
+
+// Display FPS                                                          Old FPS measure
+// setInterval(function() {
+//     fps.innerHTML = "fps: " + (1000/avgDelay).toFixed(1);
+// }, 2000);
+
+
+var stop = false;
+var frameCount = 0;
+var framesPerSecond, fpsInterval, startTime, now, then, elapsed;
+
+
+function startAnimating(framesPerSecond) {
+    fpsInterval = 1000 / framesPerSecond;
+    then = window.performance.now();
+    startTime = then;
+    animate();
+}
+
+// Start Animation(fps limiter)
+startAnimating(500);

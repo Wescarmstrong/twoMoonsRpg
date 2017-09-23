@@ -19,8 +19,6 @@ body {
 }
 
 
-
-
   @keyframes fadeIn {
       from {opacity: 0;}
       to {opacity: 1;}
@@ -36,15 +34,26 @@ body {
       to {opacity: 0;}
   }
 
-  p {
+  #animateName {
     position: absolute;
-    top: 10px;
-    left: 12px;
+    top: 0px;
+    left: 200px;
     color: white;
     opacity: 0;
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 22px;
     animation: fadeIn 2s ease-out, chill 2s 2s, fadeOut 2s 4s;
   }
+
+#fps {
+    position: absolute;
+    top: 0px;
+    left: 12px;
+    color: rgba(0, 255, 34, .9);
+    font-size: 18px;
+    font-family: Optima, Arial, sans-serif;
+
+}
 
 
 
