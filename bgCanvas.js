@@ -6,16 +6,7 @@ var fps  = document.getElementById('fps');
 bgCanvas.width = window.innerWidth;
 bgCanvas.height = window.innerHeight;
 
-var particleCount = 500;
-
-window.addEventListener("resize", function() {
-    bgCanvas.width = window.innerWidth;
-    bgCanvas.height = window.innerHeight;
-
-    lightParticles = [];
-    initializeParticles();
-});
-
+var particleCount = 250;
 
 function LightParticle(x, y, radius, color) {
     this.x = x;
@@ -51,44 +42,40 @@ var speed = 0.0005;
 var colors = [
     "#9514DD",
     "#5F0FE7",
-    "#FFFFFF",
+    "#0CB9A4",
     "#0F2DB6",
-    "#3278D0",
-    "#FFFFFF"
+    "#3278D0"
 ];
 
-var initializeParticles;
 
-(initializeParticles = function() {
-    for (var i = 0; i < particleCount; i++) {
 
-        var randomColorIndex = Math.floor(Math.random() * 7);
-        var randomRadius = Math.random() * 2;
+var initializeParticles = function() {
+    for (var i = 0; i < particleCount; i += 1) {
+
+        var randomColorIndex = Math.floor(Math.random() * 6);
+        var randomRadius = Math.random() * 5;
 
         // particles need to be spawned past screen width and height
         var x = (Math.random() * (bgCanvas.width + 200)) - (bgCanvas.width + 200) / 2;
         var y = (Math.random() * (bgCanvas.width + 200)) - (bgCanvas.width + 200) / 2;
         lightParticles.push(new LightParticle(x, y, randomRadius, colors[randomColorIndex]));
     }
-})();
+};
+initializeParticles();
 
-// var lastDraw = performance.now(); //             Old FPS measure
-// var avgDelay = 0;
+window.addEventListener("resize", function() {
+    bgCanvas.width = window.innerWidth;
+    bgCanvas.height = window.innerHeight;
 
-function animate(newtime) {
+    lightParticles = [];
+    initializeParticles();
+});
 
-    if (stop) {
-        return;
-    }
+var lastDraw = performance.now();   //    FPS measure
+var avgDelay = 0;
 
-    window.requestAnimationFrame(animate);
 
-    now = newtime;
-    elapsed = now - then;
-
-    if(elapsed > fpsInterval) {
-        then = now - (elapsed % fpsInterval);
-
+function animateBg(timestamp) {
 
     ctx.save();
     if (isMouseDown === true) {
@@ -96,10 +83,10 @@ function animate(newtime) {
         // Ease into the new opacity
         var desiredOpacity = 0.01;
         opacity += (desiredOpacity - opacity) * 0.03;
-        ctx.fillStyle = "rgba(18, 18, 18,"+ opacity +")";
+        ctx.fillStyle = "rgba(240, 248, 255,"+ opacity +")";
 
         // Ease into the new speed
-        var desiredSpeed = 0.012;
+        var desiredSpeed = 0.048;
         speed += (desiredSpeed - speed) * 0.01;
         timer += speed;
 
@@ -108,13 +95,12 @@ function animate(newtime) {
         // Ease back to the original opacity
         var originalOpacity = 1;
         opacity += (originalOpacity - opacity) * 0.01;
-        ctx.fillStyle = "rgba(18, 18, 18, " + opacity + ")";
+        ctx.fillStyle = "rgba(240, 248, 255," + opacity + ")";
 
         // Ease back to the original speed
-        var originalSpeed = 0.0005;
+        var originalSpeed = 0.003;
         speed += (originalSpeed - speed) * 0.01;
         timer += speed;
-
 
     }
 
@@ -122,26 +108,25 @@ function animate(newtime) {
     ctx.translate(bgCanvas.width / 2, bgCanvas.height/2 );
     ctx.rotate(timer);
 
-    for (var i = 0; i < lightParticles.length; i++) {
+    for (var i = 0; i < lightParticles.length; i += 1) {
         lightParticles[i].update();
     }
 
 
       ctx.restore();
 
-      var sinceStart = now - startTime;
-      var currentFps = Math.round(1000 / (sinceStart / ++frameCount) *100) / 100;
-      fps.innerHTML ="fps: " + currentFps;
 
+    var timeNow = performance.now();
+    var delay = timeNow - lastDraw;
+    avgDelay += (delay - avgDelay) / 10;
+    lastDraw = timeNow;
 
-
-    // var timeNow = performance.now();                Old FPS measure
-    // var delay = timeNow - lastDraw;
-    // avgDelay += (delay - avgDelay) / 10;
-    // lastDraw = timeNow;
-    }
-
+    setTimeout(function() {
+        window.requestAnimationFrame(animateBg);
+    }, 20);
 }
+
+
 
 var isMouseDown = false;
 
@@ -156,23 +141,22 @@ window.addEventListener("mouseup", function() {
 
 
 
-// Display FPS                                                          Old FPS measure
-// setInterval(function() {
-//     fps.innerHTML = "fps: " + (1000/avgDelay).toFixed(1);
-// }, 2000);
+//Display FPS
+setInterval(function() {
+    fps.innerHTML = "fps: " + (1000/avgDelay).toFixed(1);
+}, 2000);
 
 
-var stop = false;
-var frameCount = 0;
-var framesPerSecond, fpsInterval, startTime, now, then, elapsed;
+
+animateBg();
 
 
-function startAnimating(framesPerSecond) {
-    fpsInterval = 1000 / framesPerSecond;
-    then = window.performance.now();
-    startTime = then;
-    animate();
-}
 
-// Start Animation(fps limiter)
-startAnimating(500);
+
+
+
+
+
+
+
+

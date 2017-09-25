@@ -38,7 +38,7 @@ body {
     position: absolute;
     top: 0px;
     left: 200px;
-    color: white;
+    color: black;
     opacity: 0;
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-size: 22px;
@@ -46,10 +46,11 @@ body {
   }
 
 #fps {
+    background-color: rgba(0, 0, 0, .8);
     position: absolute;
     top: 0px;
     left: 12px;
-    color: rgba(0, 255, 34, .9);
+    color: rgba(0, 255, 34, 1);
     font-size: 18px;
     font-family: Optima, Arial, sans-serif;
 
