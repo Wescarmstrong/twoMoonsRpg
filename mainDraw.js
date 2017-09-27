@@ -1,4 +1,3 @@
-
 var canvasFps  = document.getElementById('canvasFps');
 var canvasLastDraw = performance.now();   //    FPS measure
 var canvasAvgDelay = 0;
@@ -11,6 +10,8 @@ function mainDraw() {
             break;
         case "inGame":
             // inGame call function here
+            mapLoad();
+            loadPlayer();
             break;
         case "mainMenu":
             // mainMenu call function here
