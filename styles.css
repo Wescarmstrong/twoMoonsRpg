@@ -13,7 +13,7 @@ body {
     position: absolute;
     /* display: block; */
     z-index: 1;
-    background: white;
+    background: rgba(0, 0, 0, .2);
     top: 50%; left: 50%;
     margin: -360px 0 0 -720px;
 }
@@ -45,7 +45,7 @@ body {
     animation: fadeIn 2s ease-out, chill 2s 2s, fadeOut 2s 4s;
   }
 
-#fps {
+#bgFps {
     background-color: rgba(0, 0, 0, .8);
     position: absolute;
     top: 0px;
@@ -56,5 +56,15 @@ body {
 
 }
 
+#canvasFps {
+    background-color: rgba(0, 0, 0, .8);
+    position: absolute;
+    top: 25px;
+    left: 12px;
+    color: rgba(0, 255, 34, 1);
+    font-size: 18px;
+    font-family: Optima, Arial, sans-serif;
+
+}
 
 

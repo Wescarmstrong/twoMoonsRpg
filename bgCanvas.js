@@ -1,7 +1,7 @@
 
 var bgCanvas = document.getElementById("layer1");
 var ctx = bgCanvas.getContext('2d');
-var fps  = document.getElementById('fps');
+var bgFps  = document.getElementById('bgFps');
 
 bgCanvas.width = window.innerWidth;
 bgCanvas.height = window.innerHeight;
@@ -71,11 +71,11 @@ window.addEventListener("resize", function() {
     initializeParticles();
 });
 
-var lastDraw = performance.now();   //    FPS measure
-var avgDelay = 0;
+var bgLastDraw = performance.now();   //    FPS measure
+var bgAvgDelay = 0;
 
 
-function animateBg(timestamp) {
+function animateBg() {
 
     ctx.save();
     if (isMouseDown === true) {
@@ -86,7 +86,7 @@ function animateBg(timestamp) {
         ctx.fillStyle = "rgba(240, 248, 255,"+ opacity +")";
 
         // Ease into the new speed
-        var desiredSpeed = 0.048;
+        var desiredSpeed = 0.024;
         speed += (desiredSpeed - speed) * 0.01;
         timer += speed;
 
@@ -98,7 +98,7 @@ function animateBg(timestamp) {
         ctx.fillStyle = "rgba(240, 248, 255," + opacity + ")";
 
         // Ease back to the original speed
-        var originalSpeed = 0.003;
+        var originalSpeed = 0.002;
         speed += (originalSpeed - speed) * 0.01;
         timer += speed;
 
@@ -116,10 +116,10 @@ function animateBg(timestamp) {
       ctx.restore();
 
 
-    var timeNow = performance.now();
-    var delay = timeNow - lastDraw;
-    avgDelay += (delay - avgDelay) / 10;
-    lastDraw = timeNow;
+    var bgTimeNow = performance.now();
+    var bgDelay = bgTimeNow - bgLastDraw;
+    bgAvgDelay += (bgDelay - bgAvgDelay) / 10;
+    bgLastDraw = bgTimeNow;
 
     setTimeout(function() {
         window.requestAnimationFrame(animateBg);
@@ -143,7 +143,7 @@ window.addEventListener("mouseup", function() {
 
 //Display FPS
 setInterval(function() {
-    fps.innerHTML = "fps: " + (1000/avgDelay).toFixed(1);
+    bgFps.innerHTML = "Bg: " + (1000/bgAvgDelay).toFixed(1);
 }, 2000);
 
 
