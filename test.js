@@ -191,5 +191,3 @@ function animateTest() {
 
     elapsed += 1;
 }
-
-init();

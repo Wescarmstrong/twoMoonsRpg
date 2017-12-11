@@ -1,12 +1,12 @@
 
 var bgCanvas = document.getElementById("layer1");
 var ctx = bgCanvas.getContext('2d');
-var bgFps  = document.getElementById('bgFps');
+var bgFps = document.getElementById('bgFps');
 
 bgCanvas.width = window.innerWidth;
 bgCanvas.height = window.innerHeight;
 
-var particleCount = 250;
+var particleCount = 350;
 
 function LightParticle(x, y, radius, color) {
     this.x = x;
@@ -14,12 +14,12 @@ function LightParticle(x, y, radius, color) {
     this.radius = radius;
     this.color = color;
 
-    this.update = function() {
+    this.update = function () {
 
         this.draw();
     };
 
-    this.draw = function() {
+    this.draw = function () {
         ctx.save();
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
@@ -40,20 +40,20 @@ var timer = 0;
 var opacity = 1;
 var speed = 0.0005;
 var colors = [
-    "#9514DD",
-    "#5F0FE7",
-    "#0CB9A4",
-    "#0F2DB6",
+    "#0952BD",
+    "#A5BFF0",
+    "#449991",
+    "#F2E8C9",
     "#3278D0"
 ];
 
 
 
-var initializeParticles = function() {
+var initializeParticles = function () {
     for (var i = 0; i < particleCount; i += 1) {
 
         var randomColorIndex = Math.floor(Math.random() * 6);
-        var randomRadius = Math.random() * 5;
+        var randomRadius = Math.random() * 3;
 
         // particles need to be spawned past screen width and height
         var x = (Math.random() * (bgCanvas.width + 200)) - (bgCanvas.width + 200) / 2;
@@ -63,7 +63,7 @@ var initializeParticles = function() {
 };
 initializeParticles();
 
-window.addEventListener("resize", function() {
+window.addEventListener("resize", function () {
     bgCanvas.width = window.innerWidth;
     bgCanvas.height = window.innerHeight;
 
@@ -83,7 +83,7 @@ function animateBg() {
         // Ease into the new opacity
         var desiredOpacity = 0.01;
         opacity += (desiredOpacity - opacity) * 0.03;
-        ctx.fillStyle = "rgba(240, 248, 255,"+ opacity +")";
+        ctx.fillStyle = "rgba(12, 12, 12," + opacity + ")";
 
         // Ease into the new speed
         var desiredSpeed = 0.024;
@@ -95,7 +95,7 @@ function animateBg() {
         // Ease back to the original opacity
         var originalOpacity = 1;
         opacity += (originalOpacity - opacity) * 0.01;
-        ctx.fillStyle = "rgba(240, 248, 255," + opacity + ")";
+        ctx.fillStyle = "rgba(12, 12, 12," + opacity + ")";
 
         // Ease back to the original speed
         var originalSpeed = 0.002;
@@ -105,7 +105,7 @@ function animateBg() {
     }
 
     ctx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
-    ctx.translate(bgCanvas.width / 2, bgCanvas.height/2 );
+    ctx.translate(bgCanvas.width / 2, bgCanvas.height / 2);
     ctx.rotate(timer);
 
     for (var i = 0; i < lightParticles.length; i += 1) {
@@ -113,7 +113,7 @@ function animateBg() {
     }
 
 
-      ctx.restore();
+    ctx.restore();
 
 
     var bgTimeNow = performance.now();
@@ -121,34 +121,36 @@ function animateBg() {
     bgAvgDelay += (bgDelay - bgAvgDelay) / 10;
     bgLastDraw = bgTimeNow;
 
-    setTimeout(function() {
+    setTimeout(function () {
         window.requestAnimationFrame(animateBg);
-    }, 20);
+    }, 26);
 }
 
 
 
 var isMouseDown = false;
 
-window.addEventListener("mousedown", function() {
+window.addEventListener("mousedown", function () {
     isMouseDown = true;
 });
 
 
-window.addEventListener("mouseup", function() {
+window.addEventListener("mouseup", function () {
     isMouseDown = false;
 });
 
 
 
 //Display FPS
-setInterval(function() {
-    bgFps.innerHTML = "Bg: " + (1000/bgAvgDelay).toFixed(1);
+setInterval(function () {
+    bgFps.innerHTML = "Bg: " + (1000 / bgAvgDelay).toFixed(1);
 }, 2000);
 
 
+window.addEventListener('load', function () {
+    animateBg();
+});
 
-animateBg();
 
 
 
