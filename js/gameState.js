@@ -24,12 +24,9 @@ function gameStateCase() {
 
 
 
-
-/*window.requestAnimationFrame(mainDraw);
-
-
-
-window.onload = function () {
-    window.requestAnimationFrame(mainDraw);
-};
+/*
+c.font="30px Comic Sans MS";
+c.fillStyle = "red";
+c.textAlign = "center";
+c.fillText("Hello World", layer2.width/2, layer2.height/2);
 */
