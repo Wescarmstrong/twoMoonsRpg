@@ -1,6 +1,6 @@
 //
 var gameCanvas = document.getElementById("layer2");
-var c = gameCanvas.getContext('2d');
+var ctx = gameCanvas.getContext('2d');
 
 var canvasFps = document.getElementById('canvasFps');
 var canvasLastDraw = performance.now();   //    FPS measure
@@ -11,7 +11,7 @@ var combatHandler = {
         var combatBackground = new Image();
         combatBackground.src = 'img/combatBG.jpg';
         combatBackground.onload = function () {
-            c.drawImage(combatBackground, 0, 0);
+            ctx.drawImage(combatBackground, 0, 0);
         }
     },
     combat_draw: function () {

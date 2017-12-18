@@ -69,15 +69,15 @@ function Particle(x, y, dx, dy, radius, colorTest) {
     this.draw = function() {
         this.opacity = this.timeToLive / 1;
 
-        c.save();
-        c.beginPath();
-        c.arc(this.x, this.y, 2, 0, Math.PI * 2, false);
-        c.fillStyle = 'rgba('+this.r+','+this.g+','+this.b+',' + this.opacity.toFixed(2) + ')';
-        c.fill();
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2, false);
+        ctx.fillStyle = 'rgba('+this.r+','+this.g+','+this.b+',' + this.opacity.toFixed(2) + ')';
+        ctx.fill();
 
-        c.closePath();
+        ctx.closePath();
 
-        c.restore();
+        ctx.restore();
     };
 }
 
@@ -106,11 +106,11 @@ function Mortar(x, y, dx, dy, radius, colorTest) {
     };
 
     this.draw = function() {
-        c.beginPath();
-        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        c.fillStyle = this.colorTest;
-        c.fill();
-        c.closePath();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        ctx.fillStyle = this.colorTest;
+        ctx.fill();
+        ctx.closePath();
     };
 
     this.explode = function(callback) {
@@ -169,8 +169,8 @@ let elapsed = 0;
 let randomInterval = randomIntFromRange(80, 170);
 function animateTest() {
 
-    c.fillStyle = 'rgba(240,248,255, 0.5)';
-    c.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+    ctx.fillStyle = 'rgba(240,248,255, 0.5)';
+    ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
 
     for (let i = 0; i < mortars.length; i++) {
         mortars[i].update(elapsed);

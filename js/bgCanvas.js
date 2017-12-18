@@ -1,6 +1,6 @@
 
 var bgCanvas = document.getElementById("layer1");
-var ctx = bgCanvas.getContext('2d');
+var bgCtx = bgCanvas.getContext('2d');
 var bgFps = document.getElementById('bgFps');
 
 bgCanvas.width = window.innerWidth;
@@ -20,17 +20,17 @@ function LightParticle(x, y, radius, color) {
     };
 
     this.draw = function () {
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = 15;
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        ctx.closePath();
-        ctx.restore();
+        bgCtx.save();
+        bgCtx.beginPath();
+        bgCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        bgCtx.shadowColor = this.color;
+        bgCtx.shadowBlur = 15;
+        bgCtx.shadowOffsetX = 0;
+        bgCtx.shadowOffsetY = 0;
+        bgCtx.fillStyle = this.color;
+        bgCtx.fill();
+        bgCtx.closePath();
+        bgCtx.restore();
     };
 }
 
@@ -77,13 +77,13 @@ var bgAvgDelay = 0;
 
 function animateBg() {
 
-    ctx.save();
+    bgCtx.save();
     if (isMouseDown === true) {
 
         // Ease into the new opacity
         var desiredOpacity = 0.01;
         opacity += (desiredOpacity - opacity) * 0.03;
-        ctx.fillStyle = "rgba(12, 12, 12," + opacity + ")";
+        bgCtx.fillStyle = "rgba(12, 12, 12," + opacity + ")";
 
         // Ease into the new speed
         var desiredSpeed = 0.024;
@@ -95,7 +95,7 @@ function animateBg() {
         // Ease back to the original opacity
         var originalOpacity = 1;
         opacity += (originalOpacity - opacity) * 0.01;
-        ctx.fillStyle = "rgba(12, 12, 12," + opacity + ")";
+        bgCtx.fillStyle = "rgba(12, 12, 12," + opacity + ")";
 
         // Ease back to the original speed
         var originalSpeed = 0.002;
@@ -104,16 +104,16 @@ function animateBg() {
 
     }
 
-    ctx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
-    ctx.translate(bgCanvas.width / 2, bgCanvas.height / 2);
-    ctx.rotate(timer);
+    bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+    bgCtx.translate(bgCanvas.width / 2, bgCanvas.height / 2);
+    bgCtx.rotate(timer);
 
     for (var i = 0; i < lightParticles.length; i += 1) {
         lightParticles[i].update();
     }
 
 
-    ctx.restore();
+    bgCtx.restore();
 
 
     var bgTimeNow = performance.now();
