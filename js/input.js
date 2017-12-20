@@ -12,6 +12,32 @@ var Input = {
         });
     },
 
+    update: function (data) {
+        var character = data.entities.character;
+
+        // Left Arrow
+        if (Input.helpers.down(37)) {
+            if (character.velY === 0) {
+                character.currentState = character.states.faceRight;
+            } else {
+                character.x -= character.velX;
+            }
+
+            character.direction = "left";
+        }
+
+        //Right Arrow
+        if (Input.helpers.down(39)) {
+            if (character.velY === 0) {
+                character.currentState = character.states.faceRight;
+            } else {
+                character.x += character.velX;
+            }
+
+            character.direction = "left";
+        }
+    },
+
     helpers: {
         down: function (code) {
             return Input.helpers.down[code];

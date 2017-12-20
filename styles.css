@@ -14,15 +14,24 @@ canvas {
     -webkit-touch-callout: none;
     -webkit-user-drag: none;
 }
-#layer1 {
+#layer0 {
     z-index: 0;
     position: absolute;
+}
+
+#layer1 {
+    position: absolute;
+    /* display: block; */
+    z-index: 1;
+    /*background: rgba(0, 0, 0, .2);   */
+    top: 50%; left: 50%;
+    margin: -360px 0 0 -720px;
 }
 
 #layer2 {
     position: absolute;
     /* display: block; */
-    z-index: 1;
+    z-index: 2;
     /*background: rgba(0, 0, 0, .2);   */
     top: 50%; left: 50%;
     margin: -360px 0 0 -720px;
