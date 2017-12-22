@@ -148,7 +148,7 @@ var Void = {
 
 
         window.addEventListener('load', function () {
-            animateBg();
+            window.requestAnimationFrame(animateBg);
         });
 
     }

@@ -1,5 +1,5 @@
 var Game = {
-    init: function() {
+    init: function () {
         var gameCanvas = document.getElementById("layer2");
         var bgCanvas = document.getElementById("layer1");
         var voidCanvas = document.getElementById("layer0");
@@ -18,18 +18,25 @@ var Game = {
 
         var spriteSheet = new Image();
         spriteSheet.src = 'img/exampleSheet.png';
-            // Maybe spriteSheet.src (above) should come after load event listener (below) ???
+        // Maybe spriteSheet.src (above) should come after load event listener (below) ???
         spriteSheet.addEventListener('load', function () {
             var spriteSheet = this;
 
             var data = {
                 animationFrame: 0,
                 spriteSheet: spriteSheet,
-                canvas: canvas
+                canvas: canvas,
+                lastDraw: performance.now(),
+                avgDelay: 0
             };
 
             backgroundMusic.play();
             backgroundMusic.volume = 0.3;
+
+            //Display FPS
+            setInterval(function () {
+                canvasFps.innerHTML = "canvas: " + (1000 / data.avgDelay).toFixed(1);
+            }, 2000);
 
             Input.init(data);
             Entities.init(data);
@@ -47,6 +54,11 @@ var Game = {
             Game.render(data);
 
             data.animationFrame++;
+
+            var timeNow = performance.now();
+            var delay = timeNow - data.lastDraw;
+            data.avgDelay += (delay - data.avgDelay) / 10;
+            data.lastDraw = timeNow;
 
             window.requestAnimationFrame(loop);
         };
@@ -69,3 +81,4 @@ var Game = {
 };
 
 Game.init();
+

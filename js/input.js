@@ -13,28 +13,28 @@ var Input = {
     },
 
     update: function (data) {
-        var character = data.entities.character;
+        var character1 = data.entities.character1;
 
         // Left Arrow
         if (Input.helpers.down(37)) {
-            if (character.velY === 0) {
-                character.currentState = character.states.faceRight;
+            if (character1.velY === 0) {
+                character1.currentState = character1.states.faceRight;
             } else {
-                character.x -= character.velX;
+                character1.x -= character1.velX;
             }
 
-            character.direction = "left";
+            character1.direction = "left";
         }
 
         //Right Arrow
         if (Input.helpers.down(39)) {
-            if (character.velY === 0) {
-                character.currentState = character.states.faceRight;
+            if (character1.velY === 0) {
+                character1.currentState = character1.states.faceRight;
             } else {
-                character.x += character.velX;
+                character1.x += character1.velX;
             }
 
-            character.direction = "left";
+            character1.direction = "left";
         }
     },
 

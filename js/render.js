@@ -8,11 +8,13 @@ var Render = {
         // First clear canvas
         data.canvas.ctx.clearRect(0, 0, data.canvas.gameCanvas.width, data.canvas.gameCanvas.height);
         //Render.helpers.drawText(data.entities.#, data.canvas.ctx);
-        Render.helpers.drawEntity(data.entities.character, data.canvas.ctx);
+        Render.helpers.drawEntity(data.entities.character1, data.canvas.ctx);
+        Render.helpers.drawEntity(data.entities.character2, data.canvas.ctx);
+        Render.helpers.drawEntity(data.entities.character3, data.canvas.ctx);
 
-        /*data.entities.ObjectExampleArray.forEach(function (ObjectOnScreen) {
+        data.entities.ObjectExampleArray.forEach(function (ObjectOnScreen) {
             Render.helpers.drawEntity(ObjectOnScreen, data.canvas.ctx);
-        });        */
+        });
     },
 
     helpers: {
