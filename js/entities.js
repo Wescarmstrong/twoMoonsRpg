@@ -73,7 +73,7 @@ var Entities = {
                         }
                     },
                     animation: function (data) {
-                        if (self.direction === "right" && data.animationFrame % 30 === 0) {
+                        if (self.direction === "right" && data.animationFrame % 15 === 0) {
                             self.sprite = self.spriteAnimations.idle.frames[self.spriteAnimations.idle.currentFrame];
                             self.spriteAnimations.idle.currentFrame = (self.spriteAnimations.idle.currentFrame + 1) % self.spriteAnimations.idle.frames.length;
                         } else {
