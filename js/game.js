@@ -23,11 +23,13 @@ var Game = {
             var spriteSheet = this;
 
             var data = {
+                timeSinceLastAnimation: 0,
                 animationFrame: 0,
                 spriteSheet: spriteSheet,
                 canvas: canvas,
-                lastDraw: performance.now(),
-                avgDelay: 0
+                lastDraw: 0,
+                avgDelay: 0,
+                combatDuration: 0  //  DOMHighResTimeStamp -- USE to get seconds --> (data.combatDuration / 1000).toFixed()
             };
 
             backgroundMusic.play();
@@ -37,6 +39,10 @@ var Game = {
             setInterval(function () {
                 canvasFps.innerHTML = "canvas: " + (1000 / data.avgDelay).toFixed(1);
             }, 2000);
+
+            /*setInterval(function () {                  // only used to display particular info for testing
+                test.innerHTML = "Test: " + (data.combatDuration / 1000).toFixed();
+            }, 1000);           */
 
             Input.init(data);
             Entities.init(data);
@@ -49,21 +55,30 @@ var Game = {
 
     run: function (data) {
         var loop = function () {
+
+            var timeNow = performance.now();
+            var dt = (timeNow - data.lastDraw);
+            data.timeSinceLastAnimation += dt;
+            data.combatDuration += dt;
+            var delay = timeNow - data.lastDraw;
+            data.avgDelay += (delay - data.avgDelay) / 10;
+
             Game.input(data);
             Game.update(data);
             Game.render(data);
 
-            data.animationFrame++;
+            if (data.timeSinceLastAnimation >=  10) {       //increasing animationFrame 100 times per second
+                data.animationFrame++;
+                data.timeSinceLastAnimation = 0;
+            }
 
-            var timeNow = performance.now();
-            var delay = timeNow - data.lastDraw;
-            data.avgDelay += (delay - data.avgDelay) / 10;
+
             data.lastDraw = timeNow;
 
             window.requestAnimationFrame(loop);
         };
 
-        loop();
+        window.requestAnimationFrame(loop);
     },
 
     input: function (data) {

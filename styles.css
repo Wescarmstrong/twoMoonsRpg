@@ -86,4 +86,15 @@ canvas {
 
 }
 
+#test {
+    background-color: rgba(0, 0, 0, .8);
+    position: absolute;
+    top: 50px;
+    left: 12px;
+    color: rgba(0, 255, 34, 1);
+    font-size: 18px;
+    font-family: Optima, Arial, sans-serif;
+
+}
+
 

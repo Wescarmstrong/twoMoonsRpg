@@ -8,7 +8,7 @@ var Entities = {
             h: 720
         };
 
-        var character1 = new Entities.helpers.character1(data.spriteSheet, 200, 530, 87, 110);  // location on screen parameters
+        var character1 = new Entities.helpers.character1(data.spriteSheet, 200, 530, 87, 110);  // first two numbers are location on screen
         var character2 = new Entities.helpers.character2(data.spriteSheet, 275, 430, 122, 103);
         var character3 = new Entities.helpers.character3(data.spriteSheet, 400, 350, 79, 94);
 
@@ -77,10 +77,10 @@ var Entities = {
                         }
                     },
                     animation: function (data) {
-                        if (self.direction === "right" && data.animationFrame % 30 === 0) {
+                        if (self.direction === "right" && data.animationFrame % 10 === 0) {
                             self.sprite = self.spriteAnimations.idle.frames[self.spriteAnimations.idle.currentFrame];
                             self.spriteAnimations.idle.currentFrame = (self.spriteAnimations.idle.currentFrame + 1) % self.spriteAnimations.idle.frames.length;
-                        } else {
+                        } else {   //else is for dif animations for dif events
                             self.sprite = self.spriteAnimations.idle.frames[self.spriteAnimations.idle.currentFrame];
                         }
                     }
@@ -91,6 +91,7 @@ var Entities = {
             this.velY = 0;
             this.velX = 3.8;
             this.items = 0;
+            this.speed = typeof speed === 'number' ? speed : 0;      //speed of animation
             this.x = x;
             this.y = y;
             this.w = w;
@@ -136,7 +137,7 @@ var Entities = {
                         }
                     },
                     animation: function (data) {
-                        if (self.direction === "right" && data.animationFrame % 30 === 0) {
+                        if (self.direction === "right" && data.animationFrame % 10 === 0) {
                             self.sprite = self.spriteAnimations.idle.frames[self.spriteAnimations.idle.currentFrame];
                             self.spriteAnimations.idle.currentFrame = (self.spriteAnimations.idle.currentFrame + 1) % self.spriteAnimations.idle.frames.length;
                         } else {
@@ -195,7 +196,7 @@ var Entities = {
                         }
                     },
                     animation: function (data) {
-                        if (self.direction === "right" && data.animationFrame % 30 === 0) {
+                        if (self.direction === "right" && data.animationFrame % 10 === 0) {
                             self.sprite = self.spriteAnimations.idle.frames[self.spriteAnimations.idle.currentFrame];
                             self.spriteAnimations.idle.currentFrame = (self.spriteAnimations.idle.currentFrame + 1) % self.spriteAnimations.idle.frames.length;
                         } else {
@@ -234,7 +235,7 @@ var Entities = {
             this.states = {
                 cycling: {
                     animation: function (data) {
-                        if (data.animationFrame % 13 === 0) {
+                        if (data.animationFrame % 10 === 0) {
                             self.sprite = self.spriteAnimations.cycle.frames[self.spriteAnimations.cycle.currentFrame];
 
                             self.spriteAnimations.cycle.currentFrame = (self.spriteAnimations.cycle.currentFrame + 1) % self.spriteAnimations.cycle.frames.length;
