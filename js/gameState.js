@@ -1,18 +1,20 @@
 
-function gameStateCase() {
+function gameStateCase(data) {
 
-    switch (gameState) {
+    switch (data.gameState) {
         case "title":
-            // title call function here
+            Game.musicController(data);
+            Game.title(data);
             break;
         case "mainMenu":
             // mainMenu call function here
             break;
         case "combat":
-            combatHandler.beginCombat();
+            Game.musicController(data);
+            Game.run(data);
             break;
         case "cutScene":
-            animateTest();
+            // cutScene call function here
             break;
     }
 }
@@ -24,9 +26,3 @@ function gameStateCase() {
 
 
 
-/*
-c.font="30px Comic Sans MS";
-c.fillStyle = "red";
-c.textAlign = "center";
-c.fillText("Hello World", layer2.width/2, layer2.height/2);
-*/

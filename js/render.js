@@ -1,6 +1,7 @@
 var Render = {
     // init is drawn once at start
     init: function (data) {
+        data.canvas.bgCtx.clearRect(0, 0, 1440, 720);
         Render.helpers.drawEntity(data.entities.background, data.canvas.bgCtx);
     },
     //update loops over and over
@@ -28,8 +29,8 @@ var Render = {
 
         drawText: function (text, ctx) {
             ctx.font = text.size + " " + text.font;
-            ctx.fillstyle = text.color;
-            ctx.fillText("Test Text:" + " " + text.value, text.x, text.y);
+            ctx.fillStyle = text.color;
+            ctx.fillText(text.value, text.x, text.y);
         }
     }
 };

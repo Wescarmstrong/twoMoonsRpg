@@ -13,16 +13,13 @@ var Game = {
             voidCtx: voidCanvas.getContext('2d')
         };
 
-        var backgroundMusic = new Audio('audio/HeartOnFire.mp3');
-        backgroundMusic.loop = true;
-
         var spriteSheet = new Image();
-        spriteSheet.src = 'img/exampleSheet.png';
-        // Maybe spriteSheet.src (above) should come after load event listener (below) ???
+        spriteSheet.src = 'img/exampleSheet1.png';
         spriteSheet.addEventListener('load', function () {
             var spriteSheet = this;
 
             var data = {
+                gameState: "title",
                 timeSinceLastAnimation: 0,
                 animationFrame: 0,
                 spriteSheet: spriteSheet,
@@ -31,9 +28,6 @@ var Game = {
                 avgDelay: 0,
                 combatDuration: 0  //  DOMHighResTimeStamp -- USE to get seconds --> (data.combatDuration / 1000).toFixed()
             };
-
-            backgroundMusic.play();
-            backgroundMusic.volume = 0.3;
 
             //Display FPS
             setInterval(function () {
@@ -56,6 +50,11 @@ var Game = {
     run: function (data) {
         var loop = function () {
 
+            if (data.gameState !== "combat") {
+                gameStateCase(data);
+                return;
+            }
+
             var timeNow = performance.now();
             var dt = (timeNow - data.lastDraw);
             data.timeSinceLastAnimation += dt;
@@ -67,7 +66,7 @@ var Game = {
             Game.update(data);
             Game.render(data);
 
-            if (data.timeSinceLastAnimation >=  10) {       //increasing animationFrame 100 times per second
+            if (data.timeSinceLastAnimation >= 10) {       //increasing animationFrame 100 times per second
                 data.animationFrame++;
                 data.timeSinceLastAnimation = 0;
             }
@@ -92,6 +91,24 @@ var Game = {
 
     render: function (data) {
         Render.update(data);
+    },
+
+    title: function (data) {
+        Title.init(data);
+    },
+
+    musicController: function (data) {
+        if (data.gameState === "combat") {
+            var battleMusic = new Audio('audio/HeartOnFire.mp3');
+            battleMusic.loop = true;
+            battleMusic.play();
+            battleMusic.volume = 0.3;
+        } if (data.gameState === "title") {
+            var titleMusic = new Audio('audio/LostThoughts,FragmentedMemories3.mp3');
+            titleMusic.loop = true;
+            titleMusic.play();
+            titleMusic.volume = 0.4;
+        }
     }
 };
 
